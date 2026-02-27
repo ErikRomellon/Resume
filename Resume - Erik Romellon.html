@@ -3,105 +3,557 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículum de Erik Jesús Romellón Lorenzana</title>
+    <title>Erik Romellón — CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0d0e12;
+            --surface: #13151c;
+            --border: #1e2130;
+            --accent: #5bffc2;
+            --accent2: #ff6b6b;
+            --text: #e8eaf2;
+            --muted: #6b7394;
+            --subtle: #2a2d3e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            padding: 60px 20px;
             line-height: 1.6;
         }
-        h1, h2 {
-            color: #2c3e50;
+
+        /* Ambient background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(91,255,194,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,107,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: end;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 56px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .name-block h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .name-block h1 span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .tagline {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tagline::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .contact-block {
+            text-align: right;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--muted);
+            line-height: 2.2;
+        }
+
+        .contact-block a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-block a:hover { color: var(--accent); }
+
+        .contact-block .highlight {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ── LAYOUT ── */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* ── SECTIONS ── */
         .section {
+            margin-bottom: 48px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── EXPERIENCE CARD ── */
+        .exp-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .exp-card:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .exp-card:hover::before { opacity: 1; }
+
+        .exp-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .exp-meta {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .exp-card p, .exp-card ul {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .exp-card ul { padding-left: 16px; }
+        .exp-card li { margin-bottom: 6px; }
+        .exp-card li::marker { color: var(--accent); }
+
+        /* Project card variant */
+        .proj-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .proj-card:hover {
+            border-color: var(--accent2);
+            transform: translateX(4px);
+        }
+
+        .proj-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--accent2);
+        }
+
+        .proj-card { position: relative; overflow: hidden; }
+
+        .proj-card .exp-meta { color: var(--accent2); }
+
+        .proj-card:hover { border-color: var(--accent2); }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.63rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--subtle);
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar .section { animation-delay: 0.5s; }
+
+        /* Skill groups */
+        .skill-group {
             margin-bottom: 20px;
         }
-        .contact-info, .skills, .languages {
-            list-style: none;
-            padding: 0;
+
+        .skill-group-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
-        .contact-info li, .skills li, .languages li {
-            margin-bottom: 5px;
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            font-size: 0.78rem;
+            font-weight: 400;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--surface);
+            transition: all 0.2s;
+        }
+
+        .pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Education block */
+        .edu-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .edu-uni {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .edu-degree {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .edu-year {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+
+        /* Course list */
+        .course-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .course-item:last-child { border-bottom: none; }
+
+        .course-item .year {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.63rem;
+            color: var(--accent);
+            min-width: 36px;
+        }
+
+        /* Language bar */
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .lang-name { font-size: 0.85rem; }
+
+        .lang-level {
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+        }
+
+        .lang-dot.filled { background: var(--accent); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 720px) {
+            .grid { grid-template-columns: 1fr; }
+            header { grid-template-columns: 1fr; }
+            .contact-block { text-align: left; }
         }
     </style>
 </head>
 <body>
 
+<div class="container">
+
+    <!-- HEADER -->
     <header>
-        <h1>Erik Jesús Romellón Lorenzana</h1>
-        <ul class="contact-info">
-            <li>Mérida, Yucatán</li>
-            <li>+52 9996087926</li>
-            <li>Email: <a href="mailto:Romellon20@gmail.com">Romellon20@gmail.com</a></li>
-            <li><a href="https://www.linkedin.com/in/erik-romell%C3%B3n-lorenzana-a920782b3/" target="_blank">LinkedIn</a></li>
-            <li><a href="https://ErikRomellon.hatch.one/my-portfolio" target="_blank">Portafolio</a></li>
-        </ul>
+        <div class="name-block">
+            <h1>Erik <span>Romellón</span></h1>
+            <p class="tagline">Computer Science · Software Developer</p>
+        </div>
+        <div class="contact-block">
+            <div class="highlight">Mérida, Yucatán</div>
+            <div>+52 999 608 7926</div>
+            <div><a href="mailto:Romellon20@gmail.com">Romellon20@gmail.com</a></div>
+            <div><a href="https://www.linkedin.com/in/erik-romell%C3%B3n-lorenzana-a920782b3/" target="_blank">LinkedIn ↗</a></div>
+            <div><a href="https://ErikRomellon.hatch.one/my-portfolio" target="_blank">Portafolio ↗</a></div>
+        </div>
     </header>
 
-    <section class="section">
-        <h2>Perfil Profesional</h2>
-        <p>
-            Soy un estudiante universitario próximo a graduarme en la licenciatura en ciencias de la computación, con una pasión por el desarrollo de software y una sólida base de conocimientos en programación. Me enfoco en aprender y aplicar nuevas tecnologías para crear soluciones innovadoras y eficientes.
-        </p>
-    </section>
+    <div class="grid">
 
-    <section class="section">
-        <h2>Educación</h2>
-        <p><strong>Facultad de Matemáticas - UADY, Mérida, Yucatán</strong></p>
-        <p>Licenciatura en Ciencias de la Computación (Esperado: Diciembre 2024)</p>
-    </section>
+        <!-- MAIN COLUMN -->
+        <main>
 
-    <section class="section">
-        <h2>Habilidades Técnicas</h2>
-        <ul class="skills">
-            <li>C, C#, Python, Java, Unity</li>
-            <li>MySQL, MongoDB</li>
-            <li>Git, Linux, Cisco</li>
-        </ul>
-    </section>
+            <!-- PERFIL -->
+            <div class="section">
+                <div class="section-label">Perfil</div>
+                <p style="font-size:0.9rem; color: var(--muted); line-height: 1.8;">
+                    Estudiante próximo a graduarme en Ciencias de la Computación con pasión por el desarrollo de software. Tengo base sólida en programación y me enfoco en aprender y aplicar nuevas tecnologías para crear soluciones innovadoras y eficientes.
+                </p>
+            </div>
 
-    <section class="section">
-        <h2>Experiencia Laboral</h2>
-        <h3>Prácticas Profesionales en CGTIC - Área de Telemática</h3>
-        <p>Duración: 6 meses</p>
-        <ul>
-            <li><strong>Atención a Usuarios:</strong> Brindé soporte técnico y soluciones efectivas para garantizar la continuidad de las operaciones.</li>
-            <li><strong>Configuración de Equipos de Red:</strong> Configuración y mantenimiento de equipos de red para asegurar su óptimo funcionamiento.</li>
-            <li><strong>Automatización de Procesos:</strong> Desarrollé scripts para agilizar procesos de configuración utilizando Python y C#.</li>
-        </ul>
-    </section>
+            <!-- EXPERIENCIA -->
+            <div class="section">
+                <div class="section-label">Experiencia</div>
 
-    <section class="section">
-        <h2>Experiencia en Proyectos</h2>
-        <h3>Desarrollo de Sistema de Gestión para Restaurante (Proyecto Personal)</h3>
-        <p>Desarrollé un software de gestión de ventas programado en Python para negocios gastronómicos.</p>
-        
-        <h3>Desarrollador y Diseñador de Videojuego - Symmetry Game (Enero 2024 – En curso)</h3>
-        <p>
-            Desarrollo un videojuego 2D de plataformas inspirado en la mecánica de Fruit Ninja, combinando acción rápida con un entorno visualmente atractivo. 
-            Utilizo <strong>Unity 2D</strong>, <strong>C#</strong> y <strong>Krita</strong>.
-        </p>
-    </section>
+                <div class="exp-card">
+                    <div class="exp-title">Prácticas Profesionales — Telemática</div>
+                    <div class="exp-meta">CGTIC · 6 meses</div>
+                    <ul>
+                        <li>Soporte técnico y atención a usuarios para garantizar la continuidad operativa.</li>
+                        <li>Configuración y mantenimiento de equipos de red para su óptimo funcionamiento.</li>
+                        <li>Desarrollo de scripts en <strong style="color:var(--text)">Python</strong> y <strong style="color:var(--text)">C#</strong> para automatizar procesos de configuración.</li>
+                    </ul>
+                </div>
+            </div>
 
-    <section class="section">
-        <h2>Cursos</h2>
-        <ul class="skills">
-            <li>Redes de Computadoras (2021)</li>
-            <li>Redes Empresariales, Seguridad y Automatización (2022)</li>
-            <li>Switching, Routing, and Wireless Essentials (2022)</li>
-            <li>IPv6 Básico (2022)</li>
-            <li>Introducción a Unity para Videojuegos 2D (2024)</li>
-            <li>Diseño Avanzado de Videojuegos RPG con Unity (2024)</li>
-            <li>IT Essentials (2024)</li>
-        </ul>
-    </section>
+            <!-- PROYECTOS -->
+            <div class="section">
+                <div class="section-label">Proyectos</div>
 
-    <section class="section">
-        <h2>Idiomas</h2>
-        <ul class="languages">
-            <li>Inglés: Intermedio</li>
-        </ul>
-    </section>
+                <div class="proj-card">
+                    <div class="exp-title">Symmetry Game</div>
+                    <div class="exp-meta">Enero 2024 — En curso · Desarrollo independiente</div>
+                    <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+                        Videojuego 2D de plataformas con mecánicas de acción rápida inspiradas en Fruit Ninja. Diseño y desarrollo completo del juego, incluyendo arte y programación.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Unity 2D</span>
+                        <span class="tag">C#</span>
+                        <span class="tag">Krita</span>
+                    </div>
+                </div>
+
+                <div class="proj-card" style="margin-top:0;">
+                    <div class="exp-title">Sistema de Gestión para Restaurante</div>
+                    <div class="exp-meta">Proyecto Personal</div>
+                    <p style="font-size:0.85rem; color:var(--muted); line-height:1.7;">
+                        Software de gestión de ventas para negocios gastronómicos, enfocado en usabilidad e integración de flujos de trabajo eficientes.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- EDUCACIÓN -->
+            <div class="section">
+                <div class="section-label">Educación</div>
+                <div class="edu-block">
+                    <div class="edu-uni">UADY — Facultad de Matemáticas</div>
+                    <div class="edu-degree">Licenciatura en Ciencias de la Computación</div>
+                    <div class="edu-year">Esperado: Diciembre 2024</div>
+                </div>
+            </div>
+
+            <!-- HABILIDADES -->
+            <div class="section">
+                <div class="section-label">Habilidades</div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Lenguajes</div>
+                    <div class="pill-list">
+                        <span class="pill">Python</span>
+                        <span class="pill">C#</span>
+                        <span class="pill">Java</span>
+                        <span class="pill">C</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Bases de Datos</div>
+                    <div class="pill-list">
+                        <span class="pill">MySQL</span>
+                        <span class="pill">MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Herramientas</div>
+                    <div class="pill-list">
+                        <span class="pill">Git</span>
+                        <span class="pill">Linux</span>
+                        <span class="pill">Cisco</span>
+                        <span class="pill">Unity</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDIOMAS -->
+            <div class="section">
+                <div class="section-label">Idiomas</div>
+                <div class="lang-item">
+                    <span class="lang-name">Español</span>
+                    <div class="lang-level">
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                    </div>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">Inglés</span>
+                    <div class="lang-level">
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot filled"></div>
+                        <div class="lang-dot"></div>
+                        <div class="lang-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CURSOS -->
+            <div class="section">
+                <div class="section-label">Cursos</div>
+                <div class="course-item"><span class="year">2021</span> Redes de Computadoras</div>
+                <div class="course-item"><span class="year">2022</span> Redes Empresariales y Seguridad</div>
+                <div class="course-item"><span class="year">2022</span> Switching, Routing & Wireless</div>
+                <div class="course-item"><span class="year">2022</span> IPv6 Básico</div>
+                <div class="course-item"><span class="year">2024</span> Unity para Videojuegos 2D</div>
+                <div class="course-item"><span class="year">2024</span> Diseño Avanzado RPG con Unity</div>
+                <div class="course-item"><span class="year">2024</span> IT Essentials</div>
+            </div>
+
+        </aside>
+    </div>
+
+</div>
 
 </body>
 </html>
